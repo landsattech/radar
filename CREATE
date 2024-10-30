@@ -1,0 +1,350 @@
+# Set to fail script if any command fails
+set -e
+
+# Color and style settings for enhanced output readability
+if [[ "$OSTYPE" != "msys" && "$OSTYPE" != "win32" ]]; then
+  Esc=$(printf "\033")
+  ColourReset="${Esc}[m"
+  ColourBold="${Esc}[1m"
+  Red="${Esc}[31m"
+  Green="${Esc}[32m"
+  Yellow="${Esc}[33m"
+  Blue="${Esc}[34m"
+  Magenta="${Esc}[35m"
+  Cyan="${Esc}[36m"
+  White="${Esc}[37m"
+  BoldRed="${Esc}[1;31m"
+  BoldBlue="${Esc}[1;90m"
+  BoldGreen="${Esc}[1;32m"
+  Reset="${Esc}[0m"  # ANSI code for reset
+fi
+
+# Function to display help information
+function display_help() {
+    echo "${Yellow}================================================================================${Reset}"
+    echo "${BoldBlue}Usage: $(basename $0) [options]"
+    echo ""
+    echo "Options:"
+    echo "  -r, --run             Run the RADAR executable after building."
+    echo "  --clean               Clean the build directory before building."
+    echo "  -v, --verbose         Enable verbose output during the build."
+    echo "  --install-dependencies Install required dependencies based on the OS."
+    echo "  --debug               Build the project in debug mode."
+    echo "  --release             Build the project in release mode."
+    echo "  --compiler            Specify the compiler (e.g., gcc or clang)."
+    echo "  --force               Force a full rebuild of the project."
+    echo "  --flatbuffers-only    Install the flatbuffer headers."
+    echo "  --build-project       Build only the project, no other executable."
+    echo "  -h, --help            Display this help message and exit."
+    echo ""
+    echo "This script configures and builds the project with optional configurations.${Reset}"
+    echo "${Yellow}================================================================================${Reset}"
+    exit 0
+}
+
+# Function to install dependencies on Linux
+install_linux() {
+  # Update package list and upgrade packages
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
+
+  # Install build-essential, cmake, git, and other dependencies
+  sudo apt-get install -y \
+      build-essential \
+      cmake \
+      git \
+      gcc \
+      g++ \
+      clang \
+      lcov \
+      doxygen \
+      graphviz \
+      python3.10 \
+      python3.10-dev \
+      libconfig++-dev \
+      libssl-dev \
+      net-tools \
+
+  # Install unbuffer (comes with expect-dev package)
+  sudo apt-get install -y expect-dev
+
+  # Install Doxygen and Graphviz for generating documentation
+  sudo apt-get install -y doxygen graphviz
+
+  # Verify installations
+  echo "${Yellow}================================================================================${Reset}"
+  # Verify installations
+  echo "${BoldBlue}[Install] Verifying installations...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} CMake: $(cmake --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Git: $(git --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} GCC: $(gcc --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} G++: $(g++ --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Clang: $(clang --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} LCOV: $(lcov --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Doxygen: $(doxygen --version)${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} All dependencies installed successfully on Linux!${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Remember to source ~/.zshrc and install the Docker Daemon!${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} https://docs.docker.com/get-docker/${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+
+}
+
+# Function to install dependencies on macOS
+install_macos() {
+
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install] Installing...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+
+  # Install Homebrew if not already installed
+  if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  # Install dependencies using Homebrew
+  brew install \
+    cmake \
+    git \
+    opencv \
+    gcc \
+    llvm \
+    lcov \
+    doxygen \
+    graphviz \
+    expect \
+    flatbuffers \
+    earthly
+
+  # Set up environment for clang-tidy
+  echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+  echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"' >> ~/.zshrc
+  echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"' >> ~/.zshrc
+  echo 'export PKG_CONFIG_PATH="/opt/homebrew/opt/opencv/lib/pkgconfig:$PKG_CONFIG_PATH"' >> ~/.zshrc
+  echo "export PKG_CONFIG_PATH=$OPENCV_PATH/lib/pkgconfig:\$PKG_CONFIG_PATH" >> ~/.zshrc
+  
+  echo "${Yellow}================================================================================${Reset}"
+  # Verify installations
+  echo "${BoldBlue}[Install] Verifying installations...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Unbuffer: $(which unbuffer)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} CMake: $(cmake --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Git: $(git --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} OpenCV: $(pkg-config --modversion opencv4)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} GCC: $(gcc --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} G++: $(g++ --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Clang: $(clang --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} LCOV: $(lcov --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Doxygen: $(doxygen --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Flatc: $(flatc --version)${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Earthly: $(earthly --version)${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} All dependencies installed successfully on macOS!${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} Remember to source ~/.zshrc and install the Docker Daemon!${Reset}"
+  echo "${BoldBlue}[Install]${Reset}${Green} https://docs.docker.com/get-docker/${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+
+}
+
+# Function to detect the operating system
+detect_os_for_install() {
+  OS="$(uname)"
+  case "$OS" in
+    Linux*)     install_linux ;;
+    *)          echo "Unsupported OS: $OS" ; exit 1 ;;
+  esac
+}
+
+
+# Initial flag settings
+VERBOSE=false
+BUILD_TYPE="Release"  # Default to Release unless specified otherwise
+COMPILER=""
+FORCE_REBUILD=false
+INSTALL_AFTER_BUILD=false
+COMPILE_PROJECT=false
+BUILD_PROJECT_EARTHLY=true
+HEADLESS=OFF
+
+# Enhanced option parsing
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -r|--run) RUN_FMNC=true; shift ;;
+        --clean) CLEAN_BUILD=true; shift ;;
+        -v|--verbose) VERBOSE=true; shift ;;
+        --debug) BUILD_TYPE="Debug"; shift ;;
+        --release) BUILD_TYPE="Release"; shift ;;
+        --compiler) COMPILER=$2; shift 2 ;;
+        --force) FORCE_REBUILD=true; shift ;;
+        --install) INSTALL_AFTER_BUILD=true; shift ;;
+         --install-dependencies) 
+         detect_os_for_install
+         exit 0
+         ;;  
+        --build-project) 
+         COMPILE_PROJECT=true
+         BUILD_PROJECT_EARTHLY=false
+         shift ;;
+        -h|--help) display_help ;;
+        --headless) HEADLESS=ON; shift ;;
+        *) echo "${Yellow}================================================================================${Reset}\n${Red}Unknown option: $1${Reset}"; display_help; exit 1 ;;
+    esac
+done
+``
+
+
+message="
+${Yellow}=========================================================================================================${Reset}
+${BoldBlue}      ___                       ___           ___           ___       ___           ___           ___     
+${BoldBlue}     /\__\          ___        /\  \         /\  \         /\__\     /\  \         /\  \         /\  \    
+${BoldBlue}    /:/ _/_        /\  \      /::\  \       /::\  \       /:/  /    /::\  \       /::\  \       /::\  \   
+${BoldBlue}   /:/ /\__\       \:\  \    /:/\:\  \     /:/\:\  \     /:/  /    /:/\:\  \     /:/\ \  \     /:/\ \  \  
+${BoldBlue}  /:/ /:/ _/_      /::\__\  /::\~\:\  \   /::\~\:\  \   /:/  /    /::\~\:\  \   _\:\~\ \  \   _\:\~\ \  \ 
+${BoldBlue} /:/_/:/ /\__\  __/:/\/__/ /:/\:\ \:\__\ /:/\:\ \:\__\ /:/__/    /:/\:\ \:\__\ /\ \:\ \ \__\ /\ \:\ \ \__\\
+${BoldBlue} \:\/:/ /:/  / /\/:/  /    \/_|::\/:/  / \:\~\:\ \/__/ \:\  \    \:\~\:\ \/__/ \:\ \:\ \/__/ \:\ \:\ \/__/
+${BoldBlue}  \::/_/:/  /  \::/__/        |:|::/  /   \:\ \:\__\    \:\  \    \:\ \:\__\    \:\ \:\__\    \:\ \:\__\  
+${BoldBlue}   \:\/:/  /    \:\__\        |:|\/__/     \:\ \/__/     \:\  \    \:\ \/__/     \:\/:/  /     \:\/:/  /  
+${BoldBlue}    \::/  /      \/__/        |:|  |        \:\__\        \:\__\    \:\__\        \::/  /       \::/  /   
+${BoldBlue}     \/__/                     \|__|         \/__/         \/__/     \/__/         \/__/         \/__/   
+${Reset}${Yellow}=================================================================================================${Reset}
+"
+echo "$message"
+
+echo "${Reset}${Yellow}================================================================================${Reset}"
+echo "${BoldBlue}[Build] Running pre-build checks...${Reset}"
+
+# Check for essential tools
+essential_tools=("cmake" "gcc" "g++" "make" "flatc")
+for tool in "${essential_tools[@]}"; do
+    if ! command -v $tool &> /dev/null; then
+        echo "${Red} [Check] Error: $tool is required but not installed.${Reset}"
+        # exit 1
+    fi
+done
+
+# Check for JAVA_HOME if needed
+if [ -z "$JAVA_HOME" ]; then
+    echo "${Red}[Check] Error: JAVA_HOME is not set.${Reset}"
+    # exit 1
+fi
+
+# Ensure write permission in the build directory
+if [ ! -w "build" ]; then
+    echo "${Red}[Check] Error: No write permission in the build directory.${Reset}"
+    # exit 1
+fi
+
+# Verify enough disk space (e.g., 1GB) in /tmp or build directory
+required_space_mb=1000
+available_space=$(df "/tmp" | tail -1 | awk '{print $4}')
+if (( available_space < required_space_mb * 1024 )); then
+    echo "${Red}[Check] Error: Insufficient disk space in /tmp.${Reset}"
+    # exit 1
+fi
+
+# Network availability check (simple ping to a reliable host)
+if ! ping -c 1 8.8.8.8 >/dev/null 2>&1; then
+    echo "${Red}[Check] Error: Network check failed. Please check your internet connection.${Reset}"
+    # exit 1
+fi
+
+# Check specific configuration file is present
+# if [ ! -f "config/settings.yaml" ]; then
+#     echo "${Red}Error: Missing required configuration file: config/settings.yaml.${Reset}"
+#     exit 1
+# fi
+
+echo "${BoldBlue}[Build] Pre-build checks passed successfully.${Reset}"
+
+# Clean build directory if requested
+echo "${Yellow}================================================================================${Reset}"
+echo "${BoldBlue}[Clean] Checking if build directory needs cleaning...${Reset}"
+if [[ "$CLEAN_BUILD" == true ]]; then
+  read -p "${BoldBlue}Are you sure you want to remove the build directory? [y/N] ${Reset}" confirm
+  if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    echo "${Yellow}================================================================================${Reset}"
+    echo "${BoldBlue}Removing the build directory...${Reset}"
+    rm -rf build
+  else
+    echo "${Yellow}================================================================================${Reset}"
+    echo "${BoldBlue}[Clean] Clean build skipped by user input.${Reset}"
+  fi
+else
+    echo "${BoldBlue}[Clean] No project clean requested. Skipping...${Reset}"
+fi
+
+# Determine the maximum number of CPU cores
+NUM_CORES=$(nproc 2>/dev/null || sysctl -n hw.ncpu)
+
+# Conditionally configure and build the full project
+if [[ "$COMPILE_PROJECT" == true ]]; then
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Build]${Reset} ${Green}Configuring with CMake...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}********************************************************************************${Reset}"
+  cmake -S . -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${COMPILER:+-DCMAKE_CXX_COMPILER=$COMPILER} || { echo "CMake configuration failed"; exit 1; }
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Build]${Reset} ${Green}Building with CMake...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  if [[ "$FORCE_REBUILD" == true ]]; then
+    cmake --build build --clean-first --parallel $NUM_CORES "$@"
+  else
+    cmake --build build --parallel $NUM_CORES "$@"
+  fi
+fi
+
+if [[ "$BUILD_PROJECT_EARTHLY" == true ]]; then
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}[Build]${Reset} ${Green}Building with Earthly...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BoldBlue}********************************************************************************${Reset}"
+  
+  unbuffer earthly +build 2>&1 | while IFS= read -r line
+  do
+      # Direct substitution for targeted emojis
+      line=${line//🚀/}    # Remove rocket emojis
+      line=${line//🔧/}    # Remove wrench emojis
+      line=${line//⏫/}    # Remove upgrade emojis
+      line=${line//🎁/}    # Remove gift emojis
+      line=${line//🌍/}    # Remove gift emojis
+      line=${line//✅/- }   # Replace checkmark emoji with a dash
+
+      # Exclude specific lines by not echoing them
+      # Use regex matching or more inclusive patterns
+      if [[ "$line" =~ "Push Summary" ]] || \
+        [[ "$line" =~ "To enable pushing use earthly" ]]; then
+          continue  # Skip the rest of the loop and do not echo this line
+      fi
+
+      # Filter out unwanted promotional message
+      if [[ "$line" != *"Reuse cache between CI runs with Earthly Satellites!"* ]]; then
+          echo "$line"
+      fi
+  done
+
+fi
+
+# Install if requested
+if [[ "$INSTALL_AFTER_BUILD" == true ]]; then
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${BlueBold}[Install] ${Green}Installing the project...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  cmake --install build
+fi
+
+# Run RADAR if requested
+if [[ "$RUN_FMNC" == true ]]; then
+  if [[ -f "RADAR" ]]; then
+    ./RADAR
+  else
+    echo "${Red}================================================================================${Reset}"
+    echo "${Red}[Run] Error: Executable RADAR not found in the current directory${Reset}"
+    echo "${Red}================================================================================${Reset}"
+    exit 1
+  fi
+fi
+
+

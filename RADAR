@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [[ "$OSTYPE" != "msys" && "$OSTYPE" != "win32" ]]; then
+  Esc=$(printf "\033")
+  ColourReset="${Esc}[m"
+  ColourBold="${Esc}[1m"
+  Red="${Esc}[31m"
+  Green="${Esc}[32m"
+  Yellow="${Esc}[33m"
+  Blue="${Esc}[34m"
+  Magenta="${Esc}[35m"
+  Cyan="${Esc}[36m"
+  White="${Esc}[37m"
+  BoldRed="${Esc}[1;31m"
+  BoldBlue="${Esc}[1;90m"
+  BoldGreen="${Esc}[1;32m"
+  Reset="${Esc}[0m"  # ANSI code for reset
+fi
+
+# Navigate to the build/bin directory
+cd build
+
+# Check if the RADAR executable exists
+if [[ -f "RADAR" ]]; then
+  echo "${Yellow}================================================================================${Reset}"
+  echo "${Green}Executing RADAR...${Reset}"
+  echo "${Yellow}================================================================================${Reset}"
+  ./RADAR
+else
+  echo "${Red}================================================================================${Reset}"
+  echo "${Red}Error: Executable RADAR not found in build/bin${Reset}"
+  echo "${Red}================================================================================${Reset}"
+fi
+
