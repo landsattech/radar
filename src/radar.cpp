@@ -7,6 +7,7 @@
 #include <cstring>
 #include <iostream>
 #include <unistd.h>
+#include "logger.h"
 
 namespace halo_radar
 {
@@ -43,17 +44,17 @@ uint32_t ipAddressFromString(const std::string &a)
     return inet_addr(a.c_str());
 }
 
-std::vector<AddressSet> scan()
+std::vector<AddressSet> scan(quill::Logger *logger)
 {
-    return scan(getLocalAddresses());
+    return scan(logger, getLocalAddresses());
 }
 
-std::vector<AddressSet> scan(const std::vector<uint32_t> & addresses)
+std::vector<AddressSet> scan(quill::Logger *logger, const std::vector<uint32_t> & addresses)
 {
     std::vector<AddressSet> ret;
     for(auto a: addresses)
     {
-        std::cerr << "local interface:" << ipAddressToString(a) << std::endl;
+        LOG_INFO(logger, "Local interface: {}", ipAddressToString(a));
         int listen_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         if(listen_sock < 0)
         {
@@ -139,8 +140,7 @@ std::vector<AddressSet> scan(const std::vector<uint32_t> & addresses)
             int nbytes = recvfrom(listen_sock,in_data,1024,0,(sockaddr*)&from_addr,&from_addr_len);
             if(nbytes > 0)
             {
-                std::cerr << nbytes << " bytes" << std::endl;
-                std::cerr << "is it " << sizeof(RadarReport_b201) << " bytes and start with b201?" << std::endl;
+                LOG_INFO(logger, "Number of bytes recieved: {}, needs to be {} and start with b201", nbytes, sizeof(RadarReport_b201));
                 RadarReport_b201* b201 =  reinterpret_cast<RadarReport_b201*>(in_data);
                 if(nbytes >= 150 && b201->id == 0xb201) {
                     AddressSet asa;

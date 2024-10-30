@@ -117,65 +117,128 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named radar
+# Target rules for targets named check-template
 
 # Build rule for target.
-radar: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 radar
-.PHONY : radar
+check-template: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 check-template
+.PHONY : check-template
 
 # fast build rule for target.
-radar/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/build
-.PHONY : radar/fast
+check-template/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/check-template.dir/build.make CMakeFiles/check-template.dir/build
+.PHONY : check-template/fast
 
-src/halo_radar.o: src/halo_radar.cpp.o
-.PHONY : src/halo_radar.o
+#=============================================================================
+# Target rules for targets named RADAR
+
+# Build rule for target.
+RADAR: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RADAR
+.PHONY : RADAR
+
+# fast build rule for target.
+RADAR/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/build
+.PHONY : RADAR/fast
+
+#=============================================================================
+# Target rules for targets named doc_doxygen
+
+# Build rule for target.
+doc_doxygen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 doc_doxygen
+.PHONY : doc_doxygen
+
+# fast build rule for target.
+doc_doxygen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/doc_doxygen.dir/build.make CMakeFiles/doc_doxygen.dir/build
+.PHONY : doc_doxygen/fast
+
+#=============================================================================
+# Target rules for targets named quill
+
+# Build rule for target.
+quill: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 quill
+.PHONY : quill
+
+# fast build rule for target.
+quill/fast:
+	$(MAKE) $(MAKESILENT) -f lib/quill/CMakeFiles/quill.dir/build.make lib/quill/CMakeFiles/quill.dir/build
+.PHONY : quill/fast
+
+src/logger/logger.o: src/logger/logger.cpp.o
+.PHONY : src/logger/logger.o
 
 # target to build an object file
-src/halo_radar.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar.cpp.o
-.PHONY : src/halo_radar.cpp.o
+src/logger/logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/logger/logger.cpp.o
+.PHONY : src/logger/logger.cpp.o
 
-src/halo_radar.i: src/halo_radar.cpp.i
-.PHONY : src/halo_radar.i
+src/logger/logger.i: src/logger/logger.cpp.i
+.PHONY : src/logger/logger.i
 
 # target to preprocess a source file
-src/halo_radar.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar.cpp.i
-.PHONY : src/halo_radar.cpp.i
+src/logger/logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/logger/logger.cpp.i
+.PHONY : src/logger/logger.cpp.i
 
-src/halo_radar.s: src/halo_radar.cpp.s
-.PHONY : src/halo_radar.s
+src/logger/logger.s: src/logger/logger.cpp.s
+.PHONY : src/logger/logger.s
 
 # target to generate assembly for a file
-src/halo_radar.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar.cpp.s
-.PHONY : src/halo_radar.cpp.s
+src/logger/logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/logger/logger.cpp.s
+.PHONY : src/logger/logger.cpp.s
 
-src/halo_radar_node.o: src/halo_radar_node.cpp.o
-.PHONY : src/halo_radar_node.o
+src/radar.o: src/radar.cpp.o
+.PHONY : src/radar.o
 
 # target to build an object file
-src/halo_radar_node.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar_node.cpp.o
-.PHONY : src/halo_radar_node.cpp.o
+src/radar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar.cpp.o
+.PHONY : src/radar.cpp.o
 
-src/halo_radar_node.i: src/halo_radar_node.cpp.i
-.PHONY : src/halo_radar_node.i
+src/radar.i: src/radar.cpp.i
+.PHONY : src/radar.i
 
 # target to preprocess a source file
-src/halo_radar_node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar_node.cpp.i
-.PHONY : src/halo_radar_node.cpp.i
+src/radar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar.cpp.i
+.PHONY : src/radar.cpp.i
 
-src/halo_radar_node.s: src/halo_radar_node.cpp.s
-.PHONY : src/halo_radar_node.s
+src/radar.s: src/radar.cpp.s
+.PHONY : src/radar.s
 
 # target to generate assembly for a file
-src/halo_radar_node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/radar.dir/build.make CMakeFiles/radar.dir/src/halo_radar_node.cpp.s
-.PHONY : src/halo_radar_node.cpp.s
+src/radar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar.cpp.s
+.PHONY : src/radar.cpp.s
+
+src/radar_node.o: src/radar_node.cpp.o
+.PHONY : src/radar_node.o
+
+# target to build an object file
+src/radar_node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar_node.cpp.o
+.PHONY : src/radar_node.cpp.o
+
+src/radar_node.i: src/radar_node.cpp.i
+.PHONY : src/radar_node.i
+
+# target to preprocess a source file
+src/radar_node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar_node.cpp.i
+.PHONY : src/radar_node.cpp.i
+
+src/radar_node.s: src/radar_node.cpp.s
+.PHONY : src/radar_node.s
+
+# target to generate assembly for a file
+src/radar_node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RADAR.dir/build.make CMakeFiles/RADAR.dir/src/radar_node.cpp.s
+.PHONY : src/radar_node.cpp.s
 
 # Help Target
 help:
@@ -185,13 +248,19 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... radar"
-	@echo "... src/halo_radar.o"
-	@echo "... src/halo_radar.i"
-	@echo "... src/halo_radar.s"
-	@echo "... src/halo_radar_node.o"
-	@echo "... src/halo_radar_node.i"
-	@echo "... src/halo_radar_node.s"
+	@echo "... check-template"
+	@echo "... doc_doxygen"
+	@echo "... RADAR"
+	@echo "... quill"
+	@echo "... src/logger/logger.o"
+	@echo "... src/logger/logger.i"
+	@echo "... src/logger/logger.s"
+	@echo "... src/radar.o"
+	@echo "... src/radar.i"
+	@echo "... src/radar.s"
+	@echo "... src/radar_node.o"
+	@echo "... src/radar_node.i"
+	@echo "... src/radar_node.s"
 .PHONY : help
 
 

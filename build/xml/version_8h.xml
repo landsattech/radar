@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="version_8h" kind="file" language="C++">
+    <compoundname>version.h</compoundname>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="version_8h_1ae73053051efbb45c3a39751f5ce9fb36" prot="public" static="no">
+        <name>PROJECT_NAME</name>
+        <initializer>&quot;radar&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="1" column="9" bodyfile="version.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1abecd2198575b690d25a741857f8390d1" prot="public" static="no">
+        <name>PROJECT_VERSION_MAJOR</name>
+        <initializer>@META_VERSION_MAJOR @</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="2" column="9" bodyfile="version.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1a43e23009192a3e216fefec17750d8673" prot="public" static="no">
+        <name>PROJECT_VERSION_MINOR</name>
+        <initializer>@META_VERSION_MINOR @</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="3" column="9" bodyfile="version.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1a4a5fc96a4bdd7d68ed99ccce9ca2e77e" prot="public" static="no">
+        <name>PROJECT_VERSION_PATCH</name>
+        <initializer>@META_VERSION_PATCH @</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="4" column="9" bodyfile="version.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1a36b9d2594d85563484efd30a09f8e039" prot="public" static="no">
+        <name>PROJECT_VERSION_REVISION</name>
+        <initializer>&quot;5ca206681c91&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="5" column="9" bodyfile="version.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1a4a776fa6ea8b7bdf8dfa04ad42b46407" prot="public" static="no">
+        <name>PROJECT_VERSION</name>
+        <initializer>&quot;1.0.0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="6" column="9" bodyfile="version.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="version_8h_1a7f43b36cfbbd59cd83b3193004616f7e" prot="public" static="no">
+        <name>BUILD_DATE</name>
+        <initializer>&quot;2024-10-30 12:57:46.541&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="version.h" line="7" column="9" bodyfile="version.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="version_8h_1ae73053051efbb45c3a39751f5ce9fb36" refkind="member"><highlight class="preprocessor">#define<sp/>PROJECT_NAME<sp/>&quot;radar&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2" refid="version_8h_1abecd2198575b690d25a741857f8390d1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROJECT_VERSION_MAJOR<sp/>@META_VERSION_MAJOR<sp/>@</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="version_8h_1a43e23009192a3e216fefec17750d8673" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROJECT_VERSION_MINOR<sp/>@META_VERSION_MINOR<sp/>@</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="version_8h_1a4a5fc96a4bdd7d68ed99ccce9ca2e77e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROJECT_VERSION_PATCH<sp/>@META_VERSION_PATCH<sp/>@</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="version_8h_1a36b9d2594d85563484efd30a09f8e039" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROJECT_VERSION_REVISION<sp/>&quot;5ca206681c91&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="version_8h_1a4a776fa6ea8b7bdf8dfa04ad42b46407" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROJECT_VERSION<sp/>&quot;1.0.0&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="version_8h_1a7f43b36cfbbd59cd83b3193004616f7e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BUILD_DATE<sp/>&quot;2024-10-30<sp/>12:57:46.541&quot;</highlight></codeline>
+    </programlisting>
+    <location file="version.h"/>
+  </compounddef>
+</doxygen>

@@ -148,7 +148,22 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=FMNC-SERVER
+CMAKE_PROJECT_NAME:STATIC=RADAR
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION:STATIC=7.4.0
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MAJOR:STATIC=7
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MINOR:STATIC=4
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_PATCH:STATIC=0
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_TWEAK:STATIC=
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -233,6 +248,75 @@ FMNC-SERVER_SOURCE_DIR:STATIC=/local/projects/radar
 //Add coverage information.
 OPTION_ENABLE_COVERAGE:BOOL=ON
 
+//Enable this option to build the benchmarks.
+QUILL_BUILD_BENCHMARKS:BOOL=OFF
+
+//Enable this option to build and install the examples. Set this
+// to ON to include example projects in the build process and have
+// them installed after configuring with CMake.
+QUILL_BUILD_EXAMPLES:BOOL=OFF
+
+//Enable this option to build the test suite.
+QUILL_BUILD_TESTS:BOOL=OFF
+
+//Enable code coverage analysis during the build.
+QUILL_CODE_COVERAGE:BOOL=OFF
+
+//Enable this option to disable non-prefixed `LOG_*` macros, keeping
+// only the `QUILL_LOG_*` macros to avoid conflicts with other
+// logging libraries.
+QUILL_DISABLE_NON_PREFIXED_MACROS:BOOL=OFF
+
+//Generate documentation during the build process.
+QUILL_DOCS_GEN:BOOL=OFF
+
+//Enable extensive tests that may require more resources and are
+// not suitable for hosted CI runners.
+QUILL_ENABLE_EXTENSIVE_TESTS:BOOL=OFF
+
+//Enable the CMake install target when Quill is not the master
+// project.
+QUILL_ENABLE_INSTALL:BOOL=OFF
+
+//Master Project
+QUILL_MASTER_PROJECT:BOOL=FALSE
+
+//Enable this option to build without exception handling support.
+QUILL_NO_EXCEPTIONS:BOOL=OFF
+
+//Enable this option to disable features that require thread name
+// retrieval, ensuring compatibility with older Windows versions
+// (e.g., Windows Server 2012/2016) and Android.
+QUILL_NO_THREAD_NAME_SUPPORT:BOOL=OFF
+
+//Enable AddressSanitizer (ASan) for memory error detection in
+// tests.
+QUILL_SANITIZE_ADDRESS:BOOL=OFF
+
+//Enable ThreadSanitizer (TSan) for detecting thread-related issues
+// in tests. Note: Using this option with non-Clang compilers may
+// produce false positives.
+QUILL_SANITIZE_THREAD:BOOL=OFF
+
+//Use Valgrind as the default memory checking tool in CTest. Valgrind
+// must be installed.
+QUILL_USE_VALGRIND:BOOL=OFF
+
+//Enable x86-specific optimizations for cache coherence using _mm_prefetch,
+// _mm_clflush, and _mm_clflushopt instructions. Ensure the target
+// architecture must also be specified with -march="..." when enabling
+// this option.
+QUILL_X86ARCH:BOOL=OFF
+
+//Value Computed by CMake
+RADAR_BINARY_DIR:STATIC=/local/projects/radar/build
+
+//Value Computed by CMake
+RADAR_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+RADAR_SOURCE_DIR:STATIC=/local/projects/radar
+
 //Connect Without GUI
 SERVER_CONNECT:BOOL=OFF
 
@@ -247,6 +331,15 @@ genhtml_EXECUTABLE:FILEPATH=/usr/bin/genhtml
 
 //Path to a program.
 lcov_EXECUTABLE:FILEPATH=/usr/bin/lcov
+
+//Value Computed by CMake
+quill_BINARY_DIR:STATIC=/local/projects/radar/build/lib/quill
+
+//Value Computed by CMake
+quill_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+quill_SOURCE_DIR:STATIC=/local/projects/radar/lib/quill
 
 //Value Computed by CMake
 radar_BINARY_DIR:STATIC=/local/projects/radar/build
@@ -340,6 +433,8 @@ CMAKE_GENERATOR_INSTANCE:INTERNAL=
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Test CMAKE_HAVE_LIBC_PTHREAD
+CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/local/projects/radar
@@ -362,7 +457,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -413,6 +508,8 @@ DOXYGEN_DOT_EXECUTABLE-ADVANCED:INTERNAL=1
 DOXYGEN_EXECUTABLE-ADVANCED:INTERNAL=1
 //Details about finding Doxygen
 FIND_PACKAGE_MESSAGE_DETAILS_Doxygen:INTERNAL=[/usr/bin/doxygen][cfound components: doxygen dot ][v1.9.8()]
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding clang_tidy
 FIND_PACKAGE_MESSAGE_DETAILS_clang_tidy:INTERNAL=[/usr/bin/clang-tidy][v()]
 //Details about finding cppcheck

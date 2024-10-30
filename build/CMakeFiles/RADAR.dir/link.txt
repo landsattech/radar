@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/RADAR.dir/src/radar.cpp.o CMakeFiles/RADAR.dir/src/radar_node.cpp.o CMakeFiles/RADAR.dir/src/logger/logger.cpp.o -o RADAR 

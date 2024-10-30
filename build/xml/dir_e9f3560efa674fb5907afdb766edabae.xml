@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_e9f3560efa674fb5907afdb766edabae" kind="dir">
+    <compoundname>CMakeFiles/radar.dir/src</compoundname>
+    <innerfile refid="halo__radar_8cpp_8o_8d">halo_radar.cpp.o.d</innerfile>
+    <innerfile refid="halo__radar__node_8cpp_8o_8d">halo_radar_node.cpp.o.d</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CMakeFiles/radar.dir/src/"/>
+  </compounddef>
+</doxygen>

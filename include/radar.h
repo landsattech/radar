@@ -10,7 +10,8 @@
 #include <map>
 #include <chrono>
 
-#include "halo_radar_structures.h"
+#include "logger.h"
+#include "radar_structures.h"
 
 namespace halo_radar
 {
@@ -33,8 +34,8 @@ struct AddressSet
     std::string str() const;
 };
 
-std::vector <AddressSet> scan();
-std::vector <AddressSet> scan(const std::vector<uint32_t> &addresses);
+std::vector <AddressSet> scan(quill::Logger *logger);
+std::vector <AddressSet> scan(quill::Logger *logger, const std::vector<uint32_t> &addresses);
 
 struct Scanline
 {

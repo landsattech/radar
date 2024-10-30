@@ -537,3 +537,42 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "lib/quill/CMakeLists.txt:83 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e"
+      binary: "/local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/local/projects/radar/lib/quill/cmake;/local/projects/radar/cmake"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f9608/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f9608.dir/build.make CMakeFiles/cmTC_f9608.dir/build
+        gmake[1]: Entering directory '/local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e'
+        Building C object CMakeFiles/cmTC_f9608.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_f9608.dir/src.c.o -c /local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e/src.c
+        Linking C executable cmTC_f9608
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f9608.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_f9608.dir/src.c.o -o cmTC_f9608 
+        gmake[1]: Leaving directory '/local/projects/radar/build/CMakeFiles/CMakeScratch/TryCompile-bzf81e'
+        
+      exitCode: 0
+...

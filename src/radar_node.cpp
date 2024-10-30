@@ -14,6 +14,7 @@
 
 #include "radar.h"
 #include "angular_speed_estimator.h"
+#include "logger.h"
 
 // Define custom data structures to replace ROS message types
 struct RadarEcho
@@ -300,7 +301,6 @@ void commandHandler(std::shared_ptr<HaloRadar> radar)
             std::cout << "  sea_clutter [value|auto]" << std::endl;
             std::cout << "  rain_clutter [value]" << std::endl;
             std::cout << "  sidelobe_suppression [value|auto]" << std::endl;
-            // Add more commands as needed
             continue;
         }
 
@@ -438,6 +438,10 @@ void commandHandler(std::shared_ptr<HaloRadar> radar)
 
 int main(int argc, char **argv)
 {
+
+    // Grab logger
+    quill::Logger *logger = initialize_logger();
+
     std::vector<std::shared_ptr<HaloRadar>> radars;
     std::vector<uint32_t> hostIPs;
     // Optionally populate hostIPs from command-line arguments or configuration
@@ -449,11 +453,11 @@ int main(int argc, char **argv)
         {
             std::vector<halo_radar::AddressSet> as;
             if (hostIPs.empty())
-                as = halo_radar::scan();
+                as = halo_radar::scan(logger);
             else
-                as = halo_radar::scan(hostIPs);
+                as = halo_radar::scan(logger, hostIPs);
             if (as.empty())
-                std::cerr << "No radars found!" << std::endl;
+                LOG_ERROR(logger, "No radars found!");
             for (auto a : as)
             {
                 radars.push_back(std::make_shared<HaloRadar>(a));
@@ -469,7 +473,7 @@ int main(int argc, char **argv)
 
     if (radars.empty())
     {
-        std::cerr << "Failed to find any radars. Exiting." << std::endl;
+        LOG_CRITICAL(logger, "Failed to find any radars. Exiting.");
         return -1;
     }
 
@@ -489,7 +493,7 @@ int main(int argc, char **argv)
 
     // Optionally, perform additional cleanup or logging here
 
-    std::cout << "Exiting Radar Application." << std::endl;
+    LOG_INFO(logger, "Exiting radar application.");
 
     return 0;
 }

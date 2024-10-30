@@ -1,3 +1,8 @@
-/local/projects/radar/build/CMakeFiles/radar.dir
+/local/projects/radar/build/CMakeFiles/check-template.dir
+/local/projects/radar/build/CMakeFiles/RADAR.dir
+/local/projects/radar/build/CMakeFiles/doc_doxygen.dir
 /local/projects/radar/build/CMakeFiles/edit_cache.dir
 /local/projects/radar/build/CMakeFiles/rebuild_cache.dir
+/local/projects/radar/build/lib/quill/CMakeFiles/quill.dir
+/local/projects/radar/build/lib/quill/CMakeFiles/edit_cache.dir
+/local/projects/radar/build/lib/quill/CMakeFiles/rebuild_cache.dir

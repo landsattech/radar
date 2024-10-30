@@ -145,12 +145,14 @@ include_directories(${OPENSSL_INCLUDE_DIR})
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/lib/quill)
 
 # Project declaration must be after the Hunter Cmake build system.
-project(FMNC-SERVER LANGUAGES CXX)
+project(RADAR LANGUAGES CXX)
 
 # Define the executable target. 
 # Add new source files to this list to compile them as part of the project.
 add_executable(${PROJECT_NAME} 
     src/radar.cpp
+    src/radar_node.cpp
+    src/logger/logger.cpp
 )
 
 # Set include directories for the target. 
