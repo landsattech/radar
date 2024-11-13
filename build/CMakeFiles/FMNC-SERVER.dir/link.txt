@@ -1,1 +1,0 @@
-/usr/bin/c++ -g "CMakeFiles/FMNC-SERVER.dir/src/radar.cpp.o" "CMakeFiles/FMNC-SERVER.dir/src/radar_node.cpp.o" -o FMNC-SERVER 

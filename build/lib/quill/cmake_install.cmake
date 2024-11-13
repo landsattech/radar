@@ -1,4 +1,4 @@
-# Install script for directory: /local/projects/radar/lib/quill
+# Install script for directory: /home/landsat/Code/radar/lib/quill
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

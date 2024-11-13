@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/radar.dir/src/halo_radar.cpp.o CMakeFiles/radar.dir/src/halo_radar_node.cpp.o -o radar 

@@ -1,4 +1,4 @@
-# Install script for directory: /local/projects/radar
+# Install script for directory: /home/landsat/Code/radar
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/local/projects/radar/build/lib/quill/cmake_install.cmake")
+  include("/home/landsat/Code/radar/build/lib/quill/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/local/projects/radar/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/landsat/Code/radar/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
